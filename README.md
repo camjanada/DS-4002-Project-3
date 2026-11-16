@@ -1,4 +1,4 @@
-# DS-4002-Project-4    # Predicting the Century of European Paintings
+# DS-4002-Project-4:Predicting the Century of European Paintings
 
 **DS 4002 — Project 4**  
 **Team:** The Pink Tigers  
