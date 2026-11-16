@@ -1,10 +1,10 @@
-# DS-4002-Project-4# Predicting the Century of European Paintings
+# DS-4002-Project-4    # Predicting the Century of European Paintings
 
-**DS 4002 — Project 2**  
+**DS 4002 — Project 4**  
 **Team:** The Pink Tigers  
 **Members:** Arya Rajesh, Camila Janada
 **Group Leader:** Arya Rajesh
-
+**UPDATE EVERYTHING BELOW**
 ## Contents of This Repository
 
 This repository contains the data, code, and outputs for forecasting the national weekly percentage of outpatient visits involving influenza-like illness (ILI). Using CDC FluView data, we compare an autoregressive integrated moving average (ARIMA) model with an ARIMAX model that incorporates calendar-based holiday indicators.
