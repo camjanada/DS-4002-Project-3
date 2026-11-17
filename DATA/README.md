@@ -1,6 +1,6 @@
 # Data
 
-This folder contains the data used in Predicting the Century of European Paintings (Pink Panthers — DS 4002, Project 3).
+This folder contains the data used in Predicting the Century of European Paintings (The Pink Tigers — DS 4002, Project 3).
 
 ### Initial Data
 
