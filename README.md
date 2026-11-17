@@ -65,7 +65,7 @@ Project 3 repository/
 ├── DATA/
 │   ├── README.md
 │   ├── met_sample_balanced.zip
-│   └── resnet18_feature.csv
+│   └── resnet18_features.csv
 ├── OUTPUT/
 │   ├── confusion_matrix.png
 │   ├── date_precision_by_century.png
