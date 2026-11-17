@@ -1,4 +1,4 @@
-##References:
+## References:
 
 [1] The Metropolitan Museum of Art, “Open Access at The Met.” Accessed: Nov. 6, 2026. [Online]. Available: https://www.metmuseum.org/en/hubs/open-access
 
