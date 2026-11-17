@@ -2,9 +2,9 @@
 
 This folder contains the data used in Predicting the Century of European Paintings (Pink Panthers — DS 4002, Project #4).
 
-### Initial data
+### Initial Data
 
-The initial data were collected from The Metropolitan Museum of Art Collection API (https://collectionapi.metmuseum.org/public/collection/v1) by SCRIPTS/metpulldata.ipynb. Only public-domain works were collected; The Met releases these images under its Open Access (CC0) policy.
+The initial data were collected from The Metropolitan Museum of Art Collection API (https://collectionapi.metmuseum.org/public/collection/v1) by `SCRIPTS/metpulldata.ipynb`. Only public-domain works were collected; The Met releases these images under its Open Access (CC0) policy.
 
 | File | Description |
 |---|---|
@@ -13,9 +13,9 @@ The initial data were collected from The Metropolitan Museum of Art Collection A
 
 Rerunning SCRIPTS/metpulldata.ipynb may not produce exactly the same 200 paintings, because The Met updates its collection over time. The files in this folder are the exact sample used in this project.
 
-### Final analysis data
+### Final Analysis Data
 
-The final data analyzed are generated from the initial files above by SCRIPTS/ds_project_3.ipynb. A copy is stored in this folder and is identical to the file the notebook writes to OUTPUT/:
+The final data analyzed are generated from the initial files above by SCRIPTS/ds_project_3.ipynb. A copy is stored in this folder and is identical to the file the notebook writes to `OUTPUT/`:
 
 | File | Description |
 |---|---|
