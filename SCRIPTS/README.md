@@ -2,8 +2,8 @@
 
 | Notebook | Purpose | When to run |
 |---|---|---|
-| [`metpulldata.ipynb`](metpulldata.ipynb) | Collects painting images and metadata from the Met API and exports `met_sample_balanced.zip`. | Run if you want to repeat data collection. |
-| [`ds_project_3.ipynb`](ds_project_3.ipynb) | Extracts ResNet-18 features, trains and evaluates logistic regression, compares feature counts with cross-validation, and exports the model results. | Run to reproduce the reported results using the archived dataset. |
+| [`01_metpulldata.ipynb`](metpulldata.ipynb) | Collects painting images and metadata from the Met API and exports `met_sample_balanced.zip`. | Run if you want to repeat data collection. |
+| [`02_ds_project_3.ipynb`](ds_project_3.ipynb) | Extracts ResNet-18 features, trains and evaluates logistic regression, compares feature counts with cross-validation, and exports the model results. | Run to reproduce the reported results using the archived dataset. |
 
 ## Running the analysis
 
