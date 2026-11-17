@@ -1,4 +1,4 @@
-# Predicting the Century of European Paintings (RENAME THIS GITHUB TO PROJECT 3 - ALREADY EDITED EVERYTHING
+# Predicting the Century of European Paintings 
 
 **DS 4002 — Project 3**  
 **Team:** The Pink Tigers  
