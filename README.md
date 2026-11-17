@@ -60,7 +60,8 @@ Project 3 repository/
 ├── LICENSE.md
 ├── SCRIPTS/
 │   ├── metpulldata.ipynb
-│   └── ds_project_3.ipynb
+│   ├── ds_project_3.ipynb
+│   └── README.md
 ├── DATA/
 │   └── README.md
 ├── OUTPUT/
@@ -68,7 +69,8 @@ Project 3 repository/
 │   ├── date_precision_by_century.png
 │   ├── feature_selection_cv_results.csv
 │   ├── paintings_by_medium.png
-│   └── test_accuracy_comparison.csv
+│   ├── test_accuracy_comparison.csv
+│   └── README.md
 └── REFERENCES/
     └── README.md
 ```
