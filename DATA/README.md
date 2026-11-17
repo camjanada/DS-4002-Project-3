@@ -39,25 +39,35 @@ For our project, we identify the Met as the data source. We use the Met’s open
 This project only uses images and data from the MET that was released into the public domain through its Open Access program. This ensures that no copyrighted material or personal data is involved. We will follow the Met’s API terms of use by crediting the museum as the data source. Our model’s conclusions apply only to this narrow collection of artwork. The dating comes from museum records and some data are rough estimates. Therefore, we will treat these labels as approximate. The model is not meant to authenticate artworks in practice where errors could have financial or academic consequences. 
 
 
-## Data Dictionary
+### Data dictionary
 
-| Name | Type | Definition | Uncertainty |
-|------|------|------------|-------------|
-| `REGION TYPE` | text | Geographic area; `National` for every row in this project | N/A |
-| `REGION` | text | Sub-region name (HHS region, state). For national data every value is `X`, a CDC placeholder meaning not applicable | N/A |
-| `YEAR` | integer | Year of the MMWR week | N/A |
-| `WEEK` | integer | MMWR surveillance week number (1–53); combined with `YEAR` to date each observation | N/A |
-| `% WEIGHTED ILI` | percentage | ILI visits as % of all visits, weighted by state population so large states count proportionally | CDC does not publish a confidence interval. The most recent weeks can be revised as late reports come in. |
-| `%UNWEIGHTED ILI` | percentage | `ILITOTAL` ÷ `TOTAL PATIENTS` × 100, no weighting | True uncertainty is larger because visits cluster within providers. |
-| `AGE 0-4` | integer | Number of ILI visits, ages 0–4 | Age is recorded by the provider; only a small share of visits may have an unknown age. |
-| `AGE 25-49` | integer | Number of ILI visits, ages 25–49 | Same as `AGE 0-4`. |
-| `AGE 25-64` | text | Legacy age band used by CDC before the 2009–10 season. Every value in these files is `X` (not applicable) | This band was replaced by `AGE 25-49` and `AGE 50-64`. |
-| `AGE 5-24` | integer | Number of ILI visits, ages 5–24 | This age range can be sensitive to school calendars because visits drop during holiday breaks. |
-| `AGE 50-64` | integer | Number of ILI visits, ages 50–64 | Same as `AGE 0-4`. |
-| `AGE 65` | integer | Number of ILI visits, ages 65 and older | Same as `AGE 0-4`. |
-| `ILITOTAL` | integer | Total ILI visits, all ages | This count is dependent on how many providers reported that week. |
-| `NUM. OF PROVIDERS` | integer | Sentinel providers that reported that week | The network grew about 22% during the set time period and jumps each October when providers re-enrol, so patient mix may shift between seasons. |
-| `TOTAL PATIENTS` | integer | All outpatient visits (any reason) at reporting providers | Drops in holiday weeks (e.g. Thanksgiving), which can make % ILI look higher than it is. |
+#### `metadata_balanced.csv` (200 rows, 10 columns)
+
+| Column | Type | Description | Values / Example |
+|---|---|---|---|
+| `object_id` | Integer | The Met's unique identifier for the artwork | e.g. `436145` |
+| `filename` | String | Relative path to the painting's image within this folder | e.g. `images/436145.jpg` |
+| `title` | String | Title of the artwork as listed by The Met | Free text |
+| `artist` | String | Artist's display name as listed by The Met; may be blank for unattributed works | e.g. `Rembrandt` |
+| `date` | String | Date of the work as written by The Met, which may be approximate or a range | e.g. `ca. 1665`, `1780–85` |
+| `century` | Integer | Century the painting was made in, derived from The Met's `objectBeginDate` and `objectEndDate`. A painting was only included if both dates fall in the same century. **This is the target variable.** | `17` (1601–1700), `18` (1701–1800), `19` (1801–1900) |
+| `medium` | String | Materials used | e.g. `Oil on canvas` |
+| `classification` | String | The Met's object classification | `Paintings` (all rows) |
+| `image_url` | String (URL) | Source URL of the downloaded image (The Met's `primaryImageSmall`) | `https://images.metmuseum.org/...` |
+| `artwork_url` | String (URL) | Link to the artwork's page on metmuseum.org | `https://www.metmuseum.org/art/collection/search/...` |
+
+#### `resnet18_features.csv` (200 rows, 518 columns)
+
+| Column | Type | Description | Values / Example |
+|---|---|---|---|
+| `object_id` | Integer | The Met's unique identifier; links each row to `metadata_balanced.csv` | e.g. `436145` |
+| `filename` | String | Relative path to the image the features were extracted from | e.g. `images/436145.jpg` |
+| `artist` | String | Artist's display name; used to build the artist-grouped split | e.g. `Rembrandt` |
+| `century` | Integer | Century the painting was made in. **Target variable.** | `17`, `18`, `19` |
+| `painting_level_split` | Categorical | The painting's set in the 80/20 train/test split stratified by century | `train` (160), `test` (40) |
+| `artist_grouped_split` | Categorical | The painting's set in the train/test split that keeps all of an artist's paintings in the same set | `train` (157), `test` (43) |
+| `feature_0` … `feature_511` | Float | 512 image features from a pretrained ResNet-18 (ImageNet weights) with the final classification layer removed. Each is the output of the network's final pooling layer. They're not individually interpretable but together summarize the image's visual content. **These are the model's input variables.** | Non-negative decimals, e.g. `0.8431` |
+
 ## Explanatory Plots
 
 ### Seasonal pattern across influenza seasons
