@@ -70,20 +70,15 @@ This project only uses images and data from the MET that was released into the p
 
 ## Explanatory Plots
 
-### Seasonal pattern across influenza seasons
+### Figure 1. Date Precision by Century 
 
-![Season-by-season comparison of weighted ILI](../OUTPUT/paintings_by_medium.png)
+![Date Precision by Century](../OUTPUT/date_precision_by_century.png)
 
-The weighted ILI percentage follows a strong recurring seasonal pattern. All five seasons rise during the fall and winter, reach their highest levels near the middle of the influenza season, and then decline through spring and summer. However, the timing and height of the peak vary substantially. For example, the 2022–2023 season peaks earlier, while the 2023–2024 season reaches a later elevated period. This variation shows why the model must use recent weekly observations instead of assuming that every season has an identical curve.
-
-### Relationship with previous weeks
-
-![Lagged relationships in weighted ILI](../OUTPUT/date_precision_by_century.png)
-
-Weighted ILI is strongly related to its recent history. The lag-1 correlation is 0.961 and the lag-2 correlation is 0.877, showing that adjacent weeks tend to have similar values. The lag-52 correlation is also positive at 0.711, which provides evidence of an annual seasonal pattern. These findings support the use of autoregressive forecasting models and justify comparing model forecasts with a previous-week naive baseline.
+This chart shows how precisely the Met dates the paintings in each century. Precision drops with age. 54% of 19th-century paintings have an exact year, compared with 42% of 18th-century and only 21% of 17th-century paintings. Most 17th-century dates are approximate, such as “ca. 1650” or “1640s” (63%), and 16% are missing. Our century labels are therefore least certain for the oldest paintings, and we treat them as approximate throughout the analysis. 
 
 
-### Additional exploratory finding
+### Figure 2. Paintings by Medium
 
-The distribution of weighted ILI is right-skewed because most weeks have relatively low values and a smaller number of winter weeks have much higher values. A log transformation makes the distribution more symmetric, but the time-series and lag plots show that dependence across weeks remains the most important feature for forecasting. For that reason, the final analysis models the original weighted ILI percentage with ARIMA and ARIMAX specifications while evaluating forecasts using MAE, which is less sensitive to extreme errors than squared-error metrics.
+![Paintings by Medium](../OUTPUT/paintings_by_medium.png)
 
+This chart shows the materials used for the paintings in our dataset. Nearly all are oil on canvas (153 of 200) or oil on wood (31 of 200). The other 16 are spread across nine less common mediums, such as fresco, copper, and paper, with 1 to 4 paintings each. Because the dataset is so uniform in medium, the model will mostly have to tell centuries apart by visual style rather than by the material.
