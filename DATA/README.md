@@ -39,7 +39,7 @@ For our project, we identify the Met as the data source. We use the Met’s open
 This project only uses images and data from the MET that was released into the public domain through its Open Access program. This ensures that no copyrighted material or personal data is involved. We will follow the Met’s API terms of use by crediting the museum as the data source. Our model’s conclusions apply only to this narrow collection of artwork. The dating comes from museum records and some data are rough estimates. Therefore, we will treat these labels as approximate. The model is not meant to authenticate artworks in practice where errors could have financial or academic consequences. 
 
 
-### Data dictionary
+## Data Dictionary
 
 #### `metadata_balanced.csv` (200 rows, 10 columns)
 
