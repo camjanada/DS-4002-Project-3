@@ -59,8 +59,8 @@ Project 3 repository/
 ├── README.md
 ├── LICENSE.md
 ├── SCRIPTS/
-│   ├── metpulldata.ipynb
-│   ├── ds_project_3.ipynb
+│   ├── 01_metpulldata.ipynb
+│   ├── 02_ds_project_3.ipynb
 │   └── README.md
 ├── DATA/
 │   ├── README.md
@@ -134,11 +134,9 @@ If collection stops before the target counts are reached, rerun the collection c
 ### Step 5. Run cross-validation for feature selection
 
 1. Run **artist-grouped cross-validation** on the 157 training paintings. The notebook compares **32, 64, 128, 256, and all 512 features** using five folds. Feature ranking and model fitting take place inside each training fold. The highest mean validation accuracy was **56.7% with 64 features**, compared with **48.6% with all 512 features**.
-2. Run **ungrouped cross-validation** after the grouped search. This block reuses the same 157 paintings and feature counts with stratified folds that allow an artist’s works to appear across training and validation. The best feature count in this comparison was **128**. The ungrouped run performed best with 128 features at 58.5% mean validation accuracy.
+2. Run **ungrouped cross-validation** after the grouped search. This block reuses the same 157 paintings and feature counts with stratified folds that allow an artist’s works to appear across training and validation. The ungrouped run performed best with 128 features at 58.5% mean validation accuracy.
 
 ### Step 6. Save the output and check the results
-
-The notebook saves the original test confusion matrix to `/content/confusion_matrix.png`. Download it before closing the Colab session and place it in `OUTPUT/`. The diagonal of the matrix should sum to **24 correct predictions**.
 
 The confusion matrix is saved to /content/confusion_matrix.png. The final export cell saves test_accuracy_comparison.csv and feature_selection_cv_results.csv to /content/OUTPUT/. Readers should download all three before closing Colab.
 
