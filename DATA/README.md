@@ -1,51 +1,25 @@
 # Data
 
-## Initial data
+This folder contains the data used in Predicting the Century of European Paintings (Pink Panthers — DS 4002, Project #4).
 
-### How it was obtained
+### Initial data
 
-The collection script is `SCRIPTS/metpulldata.ipynb`. It runs in Google Colab and does the following:
-
-1. Requests every object ID in the **European Paintings** department (`departmentIds=11`) from the `/objects` endpoint.
-2. Shuffles the IDs with a fixed seed (`Random(42)`).
-3. For each ID, requests the object record from `/objects/{id}` and keeps it only if:
-   - `classification` is `"Paintings"`
-   - `isPublicDomain` is `True`
-   - a `primaryImageSmall` image URL exists
-   - `objectBeginDate` and `objectEndDate` both fall within the **same** century, between 1601 and 1900. Works whose date range spans two centuries are excluded.
-4. Downloads the `primaryImageSmall` image, converts it to RGB, saves it as a JPEG, and checks that the saved file opens.
-5. Stops when the target count for each century is reached (67 / 66 / 67).
-
-The script waits 3 seconds between requests and retries on timeouts and server errors. It can be stopped and resumed without losing progress.
-
-### Columns in `metadata_balanced.csv`
-
-| Column | Description |
-|---|---|
-| `object_id` | The Met's unique object ID |
-| `filename` | Relative path to the image, e.g. `images/436105.jpg` |
-| `title` | Title of the work |
-| `artist` | Artist display name (may be blank or "Unknown") |
-| `date` | Date as written by The Met, e.g. `"ca. 1665"` |
-| `century` | 17, 18, or 19, derived from `objectBeginDate` / `objectEndDate` |
-| `medium` | Materials, e.g. `"Oil on canvas"` |
-| `classification` | Always `"Paintings"` |
-| `image_url` | URL of the image that was downloaded |
-| `artwork_url` | Link to the object's page on metmuseum.org |
-
-### Reproducibility note
-
-Rerunning the script may **not** produce exactly the same 200 paintings. The Met updates its collection over time: objects are added, re-dated, or have their images changed, and that changes which IDs are returned and which pass the filters. The files in `initial/` are the exact sample used in this project. Use them directly rather than recollecting.
-
-
-### Final analysis data
-
-The final data analyzed are generated from the raw files above by SCRIPTS/ds_4002_project_2.ipynb. Copies are stored in this folder and are identical to the files the notebook writes to OUTPUT/:
+The initial data were collected from The Metropolitan Museum of Art Collection API (https://collectionapi.metmuseum.org/public/collection/v1) by SCRIPTS/metpulldata.ipynb. Only public-domain works were collected; The Met releases these images under its Open Access (CC0) policy.
 
 | File | Description |
 |---|---|
-| `DATA/model_training_data.csv` | Cleaned 2021–2025 training data (208 weeks) used for model development. Columns: `Date` (Sunday that begins the MMWR week), `Year`, `Week`, `Weighted_ILI_Percent`, and holiday indicators `Thanksgiving`, `Christmas`, `New_Year` (1 = the week contains that holiday, 0 = otherwise). |
-| `DATA/model_test_predictions.csv` | The 2025–2026 test season (53 weeks) as analyzed: `Date`, observed weighted ILI (`Actual`), model and previous-week baseline predictions, and their absolute errors. |
+| `metadata_balanced.csv` | One row per painting for 200 European paintings sampled from The Met's European Paintings department: 67 from the 17th century, 66 from the 18th, and 67 from the 19th. Columns: `object_id` (The Met's object ID), `filename` (relative image path), `title`, `artist`, `date` (as written by The Met), `century` (17, 18, or 19, assigned only when the work's begin and end dates fall in the same century), `medium`, `classification`, `image_url`, and `artwork_url`. |
+| `images/` | The 200 painting images, downloaded from The Met's `primaryImageSmall` URLs, converted to RGB, and saved as `<object_id>.jpg`. |
+
+Rerunning SCRIPTS/metpulldata.ipynb may not produce exactly the same 200 paintings, because The Met updates its collection over time. The files in this folder are the exact sample used in this project.
+
+### Final analysis data
+
+The final data analyzed are generated from the initial files above by SCRIPTS/ds_project_3.ipynb. A copy is stored in this folder and is identical to the file the notebook writes to OUTPUT/:
+
+| File | Description |
+|---|---|
+| `DATA/resnet18_features.csv` | The 200 paintings as analyzed (518 columns). Each image was resized to 224×224, normalized with ImageNet statistics, and passed through a pretrained ResNet-18 with its final classification layer removed, producing 512 features per painting (`feature_0` to `feature_511`). Also includes `object_id`, `filename`, `artist`, `century`, `painting_level_split` (`train`/`test` in the 80/20 split stratified by century; 160/40), and `artist_grouped_split` (`train`/`test` in the split that keeps each artist entirely in one set; 157/43). |
 
 ## Data Summary
 
