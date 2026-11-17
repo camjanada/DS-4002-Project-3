@@ -1,5 +1,7 @@
 # Outputs
 
+This folder contains the outputs of Predicting the Century of European Paintings (The Pink Tigers — DS 4002, Project 3).
+
 ## Model Results
 
 | File | What it shows |
