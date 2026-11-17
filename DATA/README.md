@@ -18,20 +18,20 @@ The final data analyzed are generated from the raw files above by SCRIPTS/ds_400
 
 ## Data Summary
 
-The data are weekly national counts from the CDC's Outpatient Influenza-like Illness Surveillance Network (ILINet), downloaded through FluView Interactive. They cover five influenza seasons, from 2021–2022 through 2025–2026, split across two raw CSV files. Each row is one MMWR week. It records the number of reporting sentinel providers, total outpatient visits, influenza-like illness (ILI) visits overall and by age group, and the weighted and unweighted percentage of visits that were for ILI.
+The dataset contains about 200 public-domain European paintings from The Metropolitan Museum of Art. They are split roughly evenly across the 17th, 18th, and 19th centuries, with about 66 paintings each. The first part is a folder of painting images and the second is a CSV file with one row per painting. These files will be uploaded using the script. We built the dataset with a Python script that utilizes The Met Collection API. The script searches the Met’s European Paintings department for works that have images and requests each work’s record. It keeps only paintings marked as public domain and dated between 1600 and 1899, downloads each painting’s main image, and writes the information to the CSV which will be uploaded to our GitHub for anyone to access.
 
-The main variable for this project is `% WEIGHTED ILI`, which is the national ILI percentage weighted by state population. It follows a strong seasonal cycle, peaking each winter, with peak timing and height that vary from season to season. The other columns give context, such as provider participation and patient volume, and allow breakdowns by age.
 
 ## Provenance
-This dataset comes from the Centers for Disease Control and Prevention (CDC) through the United States Outpatient Influenza-like Illness Surveillance Network (ILINet). This is created as a secondary data source because it is not directly from patients but instead based on existing records. It was created by receiving weekly counts of total patient visits as well as influenza-like illness visits, defined as fever accompanied by cough or sore throat, from participating outpatient healthcare providers. The CDC compiles these reports and calculates the national percentage of visits for influenza-like illness, weighting each state’s contribution by its population. We accessed these data through an interactive dashboard on the CDC website called FluView Interactive to select national weekly observations from 2021-2026. 
+The dataset was constructed using the Met’s open access database. It is a collection of images and data about art pieces in The Met collection. Since 2017, the Met’s Open Access program has made images of its public-domain artworks and basic data on its collection freely available. The museum shares this material through its public Collection API. The century labels come from the museum’s dates, and many of those are estimates (for example, “ca. 1650”), so the labels are approximate.
 
 
 ## License
 
-For our project, we identify the CDC as the data source, distinguishing our analysis from the original data. We use the CDC general public-domain reuse policy for the ILINet data that we are accessing through FluView Interactive. The policy states users are to credit the CDC and state that the original material is available for free on its website while preserving the substantive content and clarifying that reuse does not imply CDC endorsement. Our project is not directly connected or endorsed by the CDC.
+For our project, we identify the Met as the data source. We use the Met’s open access initiative which made their images of public-domain artworks and basic data on all accessioned works in its collection available for unrestricted use under Creative Commons Zero (CC0). This allows us to download and share the images and data of the Met’s artworks. 
+
 
 ## Ethical Statement
-The data are public, aggregated and de-identified, so the privacy risk to individuals is very low. The main ethical risks are in how results are interpreted. Records are national weekly totals with no patient or provider identifiers. No attempt should be made to link these totals to other data to identify people or clinics. Sentinel providers volunteer and are not a random sample. Rural areas, uninsured people, and people who avoid or cannot reach outpatient care (e.g. due to cost, language or immigration concerns) are likely under-represented. Results should not be presented as the experience of every community. Differences across age groups partly reflect who visits a doctor, not only who gets sick. This is descriptive surveillance data, not a forecast or a measure of severity. It should not be used alone for individual medical decisions.
+This project only uses images and data from the MET that was released into the public domain through its Open Access program. This ensures that no copyrighted material or personal data is involved. We will follow the Met’s API terms of use by crediting the museum as the data source. Our model’s conclusions apply only to this narrow collection of artwork. The dating comes from museum records and some data are rough estimates. Therefore, we will treat these labels as approximate. The model is not meant to authenticate artworks in practice where errors could have financial or academic consequences. 
 
 
 ## Data Dictionary
@@ -57,21 +57,16 @@ The data are public, aggregated and de-identified, so the privacy risk to indivi
 
 ### Seasonal pattern across influenza seasons
 
-![Season-by-season comparison of weighted ILI](../OUTPUT/fig_iii_2_season_comparison.png)
+![Season-by-season comparison of weighted ILI](../OUTPUT/paintings_by_medium.png)
 
 The weighted ILI percentage follows a strong recurring seasonal pattern. All five seasons rise during the fall and winter, reach their highest levels near the middle of the influenza season, and then decline through spring and summer. However, the timing and height of the peak vary substantially. For example, the 2022–2023 season peaks earlier, while the 2023–2024 season reaches a later elevated period. This variation shows why the model must use recent weekly observations instead of assuming that every season has an identical curve.
 
 ### Relationship with previous weeks
 
-![Lagged relationships in weighted ILI](../OUTPUT/fig_iii_4_lag_scatter.png)
+![Lagged relationships in weighted ILI](../OUTPUT/date_precision_by_century.png)
 
 Weighted ILI is strongly related to its recent history. The lag-1 correlation is 0.961 and the lag-2 correlation is 0.877, showing that adjacent weeks tend to have similar values. The lag-52 correlation is also positive at 0.711, which provides evidence of an annual seasonal pattern. These findings support the use of autoregressive forecasting models and justify comparing model forecasts with a previous-week naive baseline.
 
-### High-value weeks and seasonal peaks
-
-![Weekly weighted ILI with flagged outliers](../OUTPUT/fig_i_1_outliers_time_series.png)
-
-The IQR rule flags observations above approximately 5.6% weighted ILI as statistical outliers. These points are concentrated around winter peaks rather than scattered randomly through time. They therefore appear to represent genuine high-influenza periods, not obvious data-entry errors. The observations were retained so that the model could learn the full magnitude of seasonal outbreaks.
 
 ### Additional exploratory finding
 
