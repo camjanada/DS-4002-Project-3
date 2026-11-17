@@ -9,3 +9,7 @@
 [4] K. Lawther, “Documentation is central to the work of museums,” Museums Journal, Museums Association, Jan. 2024. Accessed: Nov. 6, 2026. [Online]. Available: https://www.museumsassociation.org/museums-journal/opinion/2024/01/documentation-is-central-to-the-work-of-museums
 
 [5] K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning for image recognition,” arXiv:1512.03385, 2015, doi: 10.48550/arXiv.1512.03385. Accessed: Nov. 6, 2026.
+
+[6] The Metropolitan Museum of Art, "The Metropolitan Museum of Art Collection API." Accessed: Nov. 6, 2026. [Online]. Available: https://metmuseum.github.io/
+
+[7] Project TIER, "TIER Protocol 4.0." Accessed: Nov. 6, 2026. [Online]. Available: https://www.projecttier.org/tier-protocol/protocol-4-0/
