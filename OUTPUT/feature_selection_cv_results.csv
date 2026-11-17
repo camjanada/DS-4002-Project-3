@@ -1,0 +1,11 @@
+cv_method,resnet_features,mean_validation_accuracy_pct,best_feature_count
+Artist-grouped,32,53.2,False
+Artist-grouped,64,56.7,True
+Artist-grouped,128,51.7,False
+Artist-grouped,256,53.8,False
+Artist-grouped,512,48.6,False
+Ungrouped,32,57.9,False
+Ungrouped,64,54.6,False
+Ungrouped,128,58.5,True
+Ungrouped,256,55.3,False
+Ungrouped,512,55.3,False
