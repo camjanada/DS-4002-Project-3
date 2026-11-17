@@ -63,8 +63,14 @@ Project 3 repository/
 │   └── ds_project_3.ipynb
 ├── DATA/
 │   └── README.md
-└── OUTPUT/
-    └── confusion_matrix.png
+├── OUTPUT/
+│   ├── confusion_matrix.png
+│   ├── date_precision_by_century.png
+│   ├── feature_selection_cv_results.csv
+│   ├── paintings_by_medium.png
+│   └── test_accuracy_comparison.csv
+└── REFERENCES/
+    └── README.md
 ```
 
 ### Data files
@@ -79,11 +85,16 @@ Note: The collection notebook exports `met_sample_balanced.zip`. See `DATA/READM
 
 The ZIP contains `metadata_balanced.csv` and `images/` at its top level. The CSV already includes the `images/` prefix in its `filename` column. For example, `images/436145.jpg` is resolved relative to the folder containing the CSV.
 
-### Main model output
+
+### Generated Outputs
 
 | File | Description |
 |---|---|
-| `OUTPUT/confusion_matrix.png` | True and predicted centuries for the 40 paintings in the original painting-level test set |
+| [`confusion_matrix.png`](OUTPUT/confusion_matrix.png) | True and predicted centuries for the 40 paintings in the original test split |
+| [`test_accuracy_comparison.csv`](OUTPUT/test_accuracy_comparison.csv) | Model accuracy, baseline accuracy, and improvement for the painting-level and artist-grouped test splits |
+| [`feature_selection_cv_results.csv`](OUTPUT/feature_selection_cv_results.csv) | Mean validation accuracy by feature count for grouped and ungrouped cross-validation |
+| [`date_precision_by_century.png`](OUTPUT/date_precision_by_century.png) | Percentage of paintings with exact, approximate, or missing catalog dates by century |
+| [`paintings_by_medium.png`](OUTPUT/paintings_by_medium.png) | Number of paintings by cataloged medium |
 
 The test accuracies, majority-century baselines, and cross-validation scores are printed in the analysis notebook.
 
@@ -119,11 +130,13 @@ If collection stops before the target counts are reached, rerun the collection c
 ### Step 5. Run cross-validation for feature selection
 
 1. Run **artist-grouped cross-validation** on the 157 training paintings. The notebook compares **32, 64, 128, 256, and all 512 features** using five folds. Feature ranking and model fitting take place inside each training fold. The highest mean validation accuracy was **56.7% with 64 features**, compared with **48.6% with all 512 features**.
-2. Run **ungrouped cross-validation** after the grouped search. This block reuses the same 157 paintings and feature counts with stratified folds that allow an artist’s works to appear across training and validation. The best feature count in this comparison was **128**.
+2. Run **ungrouped cross-validation** after the grouped search. This block reuses the same 157 paintings and feature counts with stratified folds that allow an artist’s works to appear across training and validation. The best feature count in this comparison was **128**. The ungrouped run performed best with 128 features at 58.5% mean validation accuracy.
 
 ### Step 6. Save the output and check the results
 
 The notebook saves the original test confusion matrix to `/content/confusion_matrix.png`. Download it before closing the Colab session and place it in `OUTPUT/`. The diagonal of the matrix should sum to **24 correct predictions**.
+
+The confusion matrix is saved to /content/confusion_matrix.png. The final export cell saves test_accuracy_comparison.csv and feature_selection_cv_results.csv to /content/OUTPUT/. Readers should download all three before closing Colab.
 
 | Test split | Test paintings | Model accuracy | Baseline accuracy | Improvement |
 |---|---:|---:|---:|---:|
