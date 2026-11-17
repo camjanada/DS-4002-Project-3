@@ -63,7 +63,9 @@ Project 3 repository/
 │   ├── ds_project_3.ipynb
 │   └── README.md
 ├── DATA/
-│   └── README.md
+│   ├── README.md
+│   ├── met_sample_balanced.zip
+│   └── resnet18_feature.csv
 ├── OUTPUT/
 │   ├── confusion_matrix.png
 │   ├── date_precision_by_century.png
@@ -75,7 +77,7 @@ Project 3 repository/
     └── README.md
 ```
 
-### Data files
+### Data Files
 
 Note: The collection notebook exports `met_sample_balanced.zip`. See `DATA/README.md` for where to obtain the archive and for the dataset provenance, data dictionary, and ethical considerations.
 
