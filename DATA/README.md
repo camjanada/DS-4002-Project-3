@@ -11,11 +11,11 @@ The initial data were collected from The Metropolitan Museum of Art Collection A
 | `metadata_balanced.csv` | One row per painting for 200 European paintings sampled from The Met's European Paintings department: 67 from the 17th century, 66 from the 18th, and 67 from the 19th. Columns: `object_id` (The Met's object ID), `filename` (relative image path), `title`, `artist`, `date` (as written by The Met), `century` (17, 18, or 19, assigned only when the work's begin and end dates fall in the same century), `medium`, `classification`, `image_url`, and `artwork_url`. |
 | `images/` | The 200 painting images, downloaded from The Met's `primaryImageSmall` URLs, converted to RGB, and saved as `<object_id>.jpg`. |
 
-Rerunning SCRIPTS/metpulldata.ipynb may not produce exactly the same 200 paintings, because The Met updates its collection over time. The files in this folder are the exact sample used in this project.
+Rerunning `SCRIPTS/metpulldata.ipynb` may not produce exactly the same 200 paintings, because The Met updates its collection over time. The files in this folder are the exact sample used in this project.
 
 ### Final Analysis Data
 
-The final data analyzed are generated from the initial files above by SCRIPTS/ds_project_3.ipynb. A copy is stored in this folder and is identical to the file the notebook writes to `OUTPUT/`:
+The final data analyzed are generated from the initial files above by `SCRIPTS/ds_project_3.ipynb`. A copy is stored in this folder and is identical to the file the notebook writes to `OUTPUT/`:
 
 | File | Description |
 |---|---|
