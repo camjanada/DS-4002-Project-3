@@ -1,11 +1,42 @@
 # Data
 
-This folder contains the data used in Forecasting Weekly Influenza-Like Illness Visits (The Pink Tigers — DS 4002, Project 2).
+## Initial data
 
-| File | Description |
+### How it was obtained
+
+The collection script is `SCRIPTS/metpulldata.ipynb`. It runs in Google Colab and does the following:
+
+1. Requests every object ID in the **European Paintings** department (`departmentIds=11`) from the `/objects` endpoint.
+2. Shuffles the IDs with a fixed seed (`Random(42)`).
+3. For each ID, requests the object record from `/objects/{id}` and keeps it only if:
+   - `classification` is `"Paintings"`
+   - `isPublicDomain` is `True`
+   - a `primaryImageSmall` image URL exists
+   - `objectBeginDate` and `objectEndDate` both fall within the **same** century, between 1601 and 1900. Works whose date range spans two centuries are excluded.
+4. Downloads the `primaryImageSmall` image, converts it to RGB, saves it as a JPEG, and checks that the saved file opens.
+5. Stops when the target count for each century is reached (67 / 66 / 67).
+
+The script waits 3 seconds between requests and retries on timeouts and server errors. It can be stopped and resumed without losing progress.
+
+### Columns in `metadata_balanced.csv`
+
+| Column | Description |
 |---|---|
-| `Influenza_Data_21-25.csv` | The raw csv file downloaded from the CDC page including data from 2021-2022, 2022-2023, 2023-2024, and 2024-2025 files of Influenza Data consolidated when downloaded from the website. |
-| `Influenza_Data_25-26.csv` | The raw csv file downloaded from the CDC page including data from 2025-2026 of Influenza Data. |
+| `object_id` | The Met's unique object ID |
+| `filename` | Relative path to the image, e.g. `images/436105.jpg` |
+| `title` | Title of the work |
+| `artist` | Artist display name (may be blank or "Unknown") |
+| `date` | Date as written by The Met, e.g. `"ca. 1665"` |
+| `century` | 17, 18, or 19, derived from `objectBeginDate` / `objectEndDate` |
+| `medium` | Materials, e.g. `"Oil on canvas"` |
+| `classification` | Always `"Paintings"` |
+| `image_url` | URL of the image that was downloaded |
+| `artwork_url` | Link to the object's page on metmuseum.org |
+
+### Reproducibility note
+
+Rerunning the script may **not** produce exactly the same 200 paintings. The Met updates its collection over time: objects are added, re-dated, or have their images changed, and that changes which IDs are returned and which pass the filters. The files in `initial/` are the exact sample used in this project. Use them directly rather than recollecting.
+
 
 ### Final analysis data
 
